@@ -13,7 +13,7 @@ describe EventSessionsController do
     describe 'an unauthorized user' do
       it 'cannot see a list of attendees' do
         expect(
-          get :index, event_id: @event.id
+          get :index, params: {event_id: @event.id}
         ).to be_redirect
       end
     end
@@ -25,7 +25,7 @@ describe EventSessionsController do
 
       it 'can see a list of attendees' do
         expect(
-          get :index, event_id: @event.id
+          get :index, params: {event_id: @event.id}
         ).not_to be_redirect
       end
     end
@@ -41,7 +41,7 @@ describe EventSessionsController do
 
     context 'format is ics' do
       it 'responds with success' do
-        get :show, format: 'ics', event_id: @event.id, id: @event_session.id
+        get :show, format: 'ics', params: {event_id: @event.id, id: @event_session.id}
         expect(response).to be_success
       end
 
@@ -49,14 +49,14 @@ describe EventSessionsController do
         generator = double(event_session_ics: 'CALENDAR STUFF')
         expect(IcsGenerator).to receive(:new).and_return(generator)
 
-        get :show, format: 'ics', event_id: @event.id, id: @event_session.id
+        get :show, format: 'ics', params: {event_id: @event.id, id: @event_session.id}
       end
     end
 
     context 'format is not ics' do
       it 'responds with not_found' do
-        get :show, event_id: @event.id, id: @event_session.id
-        expect(response).to be_not_found
+        get :show, params: {event_id: @event.id, id: @event_session.id}
+        expect(response.status).to eq(404)
       end
     end
   end

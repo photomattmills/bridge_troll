@@ -15,7 +15,7 @@ describe Chapters::LeadersController do
 
       non_leader = create(:user, first_name: 'Steve')
 
-      get :potential, format: :json, chapter_id: chapter.id, q: 'Steve'
+      get :potential, params: {format: :json, chapter_id: chapter.id, q: 'Steve'}
 
       expect(JSON.parse(response.body).map { |u| u['id'] }).to eq([non_leader.id])
     end

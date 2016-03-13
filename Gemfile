@@ -4,7 +4,8 @@ ruby '2.3.1'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0.rc1'
+gem 'sprockets-rails', '2.3.3'
 gem 'devise', '4.1.0'
 gem 'pundit'
 gem 'puma'
@@ -21,7 +22,8 @@ gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'gravatar_image_tag'
 gem 'simple_form'
-gem 'rack-canonical-host'
+# TODO: find replacement, not compatible with rails 5
+# gem 'rack-canonical-host'
 gem 'icalendar'
 gem 'pg' if ENV['FORCE_POSTGRES']
 gem 'rack-mini-profiler'
@@ -54,26 +56,27 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "byebug"
+  gem "listen"
 end
 
 group :test, :development do
   gem 'jasmine'
   gem 'jasmine-jquery-rails'
   gem 'sqlite3'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '3.5.0.beta3'
   gem 'rspec-collection_matchers'
   gem 'awesome_print'
+  gem 'rails-controller-testing'
 end
 
 group :test do
   gem 'webmock'
   gem "factory_girl_rails"
-  gem 'capybara', '>= 2.0.1'
+  gem 'capybara'
   gem "poltergeist"
   gem "launchy"
   gem 'shoulda-matchers'
   gem "faker"
   gem 'capybara-screenshot'
-  # Remove after Rails 5: https://github.com/rails/rails/pull/18458
-  gem 'test_after_commit'
+  gem 'database_cleaner'
 end
